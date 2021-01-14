@@ -8,7 +8,7 @@ const LogIn = () => {
     const [error, setError] = useState();
     const [isLoading, setLoading] = useState(false);
 
-    const [username, setusername] = useState();
+    const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
     const { setUserData } = useContext(userContext);
@@ -19,7 +19,7 @@ const LogIn = () => {
         e.preventDefault();
         const loggedInUser = { username, password };
         const loginUserRes = await Axios.post(
-            "http://localhost:3001/users/login",
+            "http://localhost:5001/users/login",
             loggedInUser
         ).catch(
             (err) => {
@@ -57,14 +57,14 @@ const LogIn = () => {
                     <></>
             }
 
-            <label htmlFor="loginusername">Username</label>
+            <label htmlFor="loginUsername">Username</label>
             <input
                 value={username}
-                id="loginusername"
+                id="loginUsername"
                 type="text"
                 name="username"
                 className="inputBox"
-                onChange={(e) => { setusername(e.target.value); }}
+                onChange={(e) => { setUsername(e.target.value); }}
             />
 
             <br />
