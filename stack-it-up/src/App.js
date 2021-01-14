@@ -1,10 +1,9 @@
 import './App.css';
 import React, { useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import LogIn from './RoutesPages/logIn';
 import UserContext from "./Context/userContext"
 import Header from "./PagePart/header"
-
 
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -13,17 +12,19 @@ export default function App() {
   });
   return (
     <>
-      <UserContext.Provider value={{ userData, setUserData }}>
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <landingPage />
-          </Route>
-          <Route path="/login">
-            <LogIn />
-          </Route>
-        </Switch>
-      </UserContext.Provider>
+      <Router>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <landingPage />
+            </Route>
+            <Route path="/login">
+              <LogIn />
+            </Route>
+          </Switch>
+        </UserContext.Provider>
+      </Router>
     </>
   );
 }
