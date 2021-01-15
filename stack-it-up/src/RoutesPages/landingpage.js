@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import UserContext from "../Context/userContext";
 
 const LandingPage = (props) => {
     const [error, setError] = useState();
@@ -9,6 +10,7 @@ const LandingPage = (props) => {
     const [movie, setMovie] = useState();
     const [movieCards, setMovieCards] = useState();
 
+    const { userData, setUserData } = useContext(UserContext);
 
     const getMovies = async (e) => {
         const movies = await Axios.get(
@@ -21,6 +23,9 @@ const LandingPage = (props) => {
     const getMovieCards = async (e) => {
         var count = Object.keys(movie).length;
         var movieCards = [];
+        
+        console.log(movie);
+        
         for (var i = 0; i < count; i++) {
             var movieSrc = "https://image.tmdb.org/t/p/w200" + movie[i].poster_path;
             movieCards.push(
@@ -37,6 +42,16 @@ const LandingPage = (props) => {
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
                         activeColor="#ffd700"
+                        onChange={(rating) => {
+                            console.log(rating, i);
+                            // console.log('Rating: ' + movie[index]);
+                            // Axios.post('http://localhost:5001/reviews/post-review', {
+                            //     email: userData.email,
+                            //     rating,
+                            //     reviewText: "It's a trash movie",
+                            //     movieId: movie[index].id
+                            // })
+                        }}
                     />
                 </div>
             );

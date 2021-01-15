@@ -35,7 +35,7 @@ const Header = () => {
                     userData.user ?
                         <>
                             <button onClick={navToAccount}>
-                                <p>{userData.user}</p>
+                                <p>{userData.user.username}</p>
                             </button>
                             <button onClick={logOutUser}>
                                 <p>Log Out</p>
