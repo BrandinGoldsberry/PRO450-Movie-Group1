@@ -27,7 +27,7 @@ const LandingPage = (props) => {
                 <div>
                     <h3>{movie[i].title}</h3>
                     <img src={"" + movieSrc + ""}></img>
-                    <h4>{movie[i].title}</h4>
+                    <h4>{movie[i].release_date}</h4>
                     <p>{movie[i].overview.slice(0, 65)}...</p>
                     <ReactStars
                         count={5}
