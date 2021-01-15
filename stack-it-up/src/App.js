@@ -18,7 +18,7 @@ export default function App() {
           <Header />
           <Switch>
             <Route exact path="/">
-              {/* <LandingPage /> */}
+              <LandingPage />
             </Route>
             <Route path="/login">
               <LogIn />
