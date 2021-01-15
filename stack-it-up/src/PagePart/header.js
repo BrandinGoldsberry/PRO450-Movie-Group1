@@ -9,7 +9,7 @@ const Header = () => {
 
     const navToHome = () => history.push("/");
     const navToLogin = () => history.push("/login");
-    // const navToAccount = () => history.push("/account");
+    const navToAccount = () => history.push("/account");
     const logOutUser = () => {
         setUserData({
             user: undefined
@@ -30,12 +30,13 @@ const Header = () => {
                         Home
                     </p>
                 </button>
+                <span className="nav-splitter"></span>
                 {
                     userData.user ?
                         <>
-                            {/* <button onClick={navToAccount}>
-                                <p>Account</p>
-                            </button> */}
+                            <button onClick={navToAccount}>
+                                <p>{userData.user}</p>
+                            </button>
                             <button onClick={logOutUser}>
                                 <p>Log Out</p>
                             </button>

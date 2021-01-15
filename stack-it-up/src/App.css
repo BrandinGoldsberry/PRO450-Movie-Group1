@@ -42,3 +42,18 @@ input[type="submit"] {
     color: unset;
     margin-left: 5px;
 }
+
+a#navBarTitle h1 {
+    white-space: nowrap;
+}
+div#navButtons {
+    width: 100%;
+}
+div#navButtons button {
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+}
+span.nav-splitter {
+    width: 100%;
+}
