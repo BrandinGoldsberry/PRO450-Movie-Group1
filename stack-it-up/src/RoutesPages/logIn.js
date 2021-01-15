@@ -18,6 +18,7 @@ const LogIn = () => {
         setLoading(true);
         e.preventDefault();
         const loggedInUser = { username, password };
+        console.log(loggedInUser);
         const loginUserRes = await Axios.post(
             "http://localhost:5001/users/login",
             loggedInUser
@@ -27,6 +28,7 @@ const LogIn = () => {
                 setError(err.response.data);
             }
         );
+        console.log(loginUserRes);
         if (loginUserRes) {
             setUserData({
                 user: loginUserRes.data.user

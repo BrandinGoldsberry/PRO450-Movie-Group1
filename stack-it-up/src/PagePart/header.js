@@ -12,12 +12,11 @@ const Header = () => {
     // const navToAccount = () => history.push("/account");
     const logOutUser = () => {
         setUserData({
-            token: undefined,
             user: undefined
         });
-        localStorage.setItem("auth-token", "");
-        history.push("/")
-        history.go()
+        localStorage.setItem("user", "");
+        history.push("/");
+        history.go();
     }
 
     return (
