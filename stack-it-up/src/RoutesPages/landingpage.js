@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
 import UserContext from "../Context/userContext";
+import Stars from '../PagePart/Stars';
+import MovieCard from '../PagePart/MovieCard';
 
 const LandingPage = (props) => {
     const [error, setError] = useState();
@@ -20,51 +21,25 @@ const LandingPage = (props) => {
     };
 
     const getMovieCards = async (e) => {
-        // var count = Object.keys(movies).length;
         var movieCards = [];
-        
-        console.log(movies);
         
         if (movies) {
             movies.map((movie, i) => {
-                var movieSrc = "https://image.tmdb.org/t/p/w200" + movie.poster_path;
                 movieCards.push(
-                    <div key={i}>
-                        <h3>{movie.title}</h3>
-                        <img src={"" + movieSrc + ""}></img>
-                        <h4>{movie.release_date}</h4>
-                        {
-                            userData.user ?
-                            <>
-                                <p>{movie.overview.slice(0, 65)}...</p>
-                                <input id={"reviewText" + i} type="text" placeholder="Type a review..." />
-                                <ReactStars
-                                    data-movie-id={movie.id}
-                                    count={5}
-                                    size={24}
-                                    isHalf={true}
-                                    emptyIcon={<i className="far fa-star"></i>}
-                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                    fullIcon={<i className="fa fa-star"></i>}
-                                    activeColor="#ffd700"
-                                    onChange={(rating) => {
-                                        const reviewText = document.getElementById("reviewText" + i).value;
-                                        Axios.post('http://localhost:5001/reviews/post-review', {
-                                            email: userData.user.email,
-                                            reviewText,
-                                            rating,
-                                            movieId: movie.id
-                                        });
-                                    }}
-                                />
-                            </> : <></>
-                        }
-                    </div>
+                    <MovieCard key={movie.id} movie={movie} />
                 );
             });
         }
         setMovieCards(movieCards);
     }
+
+    // Submit review to API
+    // Axios.post('http://localhost:5001/reviews/post-review', {
+    //     email: userData.user.email,
+    //     reviewText,
+    //     rating,
+    //     movieId: movie.id
+    // });
 
     useEffect(() => {
         getMovies();

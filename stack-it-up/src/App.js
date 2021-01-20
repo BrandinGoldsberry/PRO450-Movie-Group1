@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import LandingPage from './RoutesPages/landingpage';
