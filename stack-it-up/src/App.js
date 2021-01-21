@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import LandingPage from './RoutesPages/landingpage';
 import LogIn from './RoutesPages/logIn';
+import SignUp from './RoutesPages/signUp';
 import UserContext from "./Context/userContext"
 import Header from "./PagePart/header"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -22,6 +24,9 @@ export default function App() {
             </Route>
             <Route path="/login">
               <LogIn />
+            </Route>
+            <Route path="/sign-up">
+              <SignUp />
             </Route>
           </Switch>
         </UserContext.Provider>
