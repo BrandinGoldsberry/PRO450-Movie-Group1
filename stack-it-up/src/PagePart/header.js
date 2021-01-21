@@ -1,15 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import UserContext from "../Context/userContext";
+import MovieContext from "../Context/movieContext";
 import Axios from "axios"
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from "axios";
 
 const Header = () => {
     const { userData, setUserData } = useContext(UserContext);
+    const { movieData, setMovieData } = useContext(MovieContext);
+    
     const [searchType, setSearchType] = useState("title");
     const [selectedgenre, setSelectedgenre] = useState();
-    const [movies, setMovies] = useState();
     const [title, setTitle] = useState("");
     const [actor, setActor] = useState("");
     const [genreId, setGenreId] = useState(28);
@@ -119,7 +121,12 @@ const Header = () => {
             `https://api.themoviedb.org/3/discover/movie?api_key=8fbd2bfef8820b20b271b1213852fe21&with_genres=${genreId}`
         );
         // console.log(axiosResponse.data.results)
-        setMovies(axiosResponse.data.results);
+        setMovieData({ movies: undefined });
+        setMovieData({
+            movies: axiosResponse.data.results
+        });
+        // history.push("/");
+        // history.go();
     }
 
     // `https://api.themoviedb.org/3/search/movie?api_key=8fbd2bfef8820b20b271b1213852fe21&language=en-US&query=${}&page=1&include_adult=false`
@@ -127,8 +134,13 @@ const Header = () => {
         const axiosResponse = await Axios.get(
             `https://api.themoviedb.org/3/search/movie?api_key=8fbd2bfef8820b20b271b1213852fe21&language=en-US&query=${title}&page=1&include_adult=false`
         );
-        // console.log(axiosResponse.data)
-        setMovies(axiosResponse.data.results);
+        // console.log(axiosResponse.data.results);
+        setMovieData({ movies: undefined });
+        setMovieData({
+            movies: axiosResponse.data.results
+        });
+        // history.push("/");
+        // history.go();
     }
 
     // `https://api.themoviedb.org/3/search/person?api_key=8fbd2bfef8820b20b271b1213852fe21&language=en-US&query=${}%20&page=1&include_adult=false`
@@ -149,7 +161,12 @@ const Header = () => {
             }
         }
         // console.log(movies)
-        setMovies(movies);
+        setMovieData({ movies: undefined });
+        setMovieData({
+            movies
+        });
+        // history.push("/");
+        // history.go();
     }
 
     return (

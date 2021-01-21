@@ -1,30 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
-import UserContext from "../Context/userContext";
+// import UserContext from "../Context/userContext";
+import MovieContext from "../Context/movieContext";
 import Stars from '../PagePart/Stars';
 import MovieCard from '../PagePart/MovieCard';
 
 const LandingPage = (props) => {
     const [error, setError] = useState();
     const [isLoading, setLoading] = useState(false);
-    const [movies, setMovies] = useState();
+    // const [movies, setMovies] = useState();
     const [movieCards, setMovieCards] = useState();
 
-    const { userData, setUserData } = useContext(UserContext);
+    // const { userData, setUserData } = useContext(UserContext);
+    const { movieData, setMovieData } = useContext(MovieContext);
+
+    let history = useHistory();
 
     const getMovies = async (e) => {
         const movies = await Axios.get(
             "https://api.themoviedb.org/3/movie/popular?api_key=8fbd2bfef8820b20b271b1213852fe21&language=en-US&page=1"
         );
-        setMovies(movies.data.results);
+        setMovieData({
+            movies: movies.data.results
+        });
     };
 
     const getMovieCards = async (e) => {
+        // console.log(movieData);
         var movieCards = [];
         
-        if (movies) {
-            movies.map((movie, i) => {
+        if (movieData.movies) {
+            movieData.movies.map((movie, i) => {
                 movieCards.push(
                     <MovieCard key={movie.id} movie={movie} />
                 );
@@ -42,9 +49,10 @@ const LandingPage = (props) => {
     // });
 
     useEffect(() => {
+        console.log(movieData.movies);
         getMovies();
         getMovieCards();
-    }, [!movies]);
+    }, [!movieData.movies]);
 
     return (
         <>
