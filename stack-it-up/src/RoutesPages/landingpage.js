@@ -49,7 +49,7 @@ const LandingPage = (props) => {
     // });
 
     useEffect(() => {
-        console.log(movieData.movies);
+        // console.log(movieData.movies);
         getMovies();
         getMovieCards();
     }, [!movieData.movies]);
