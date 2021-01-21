@@ -217,7 +217,7 @@ const Header = () => {
                                 <>
                                     <select onChange={(e) => { handleGenreSelect(e) }} name="genres">
                                         {genres.map(function (genre, i) {
-                                            return <option value={genre.id}>{genre.name}</option>
+                                            return <option value={genre.id} key={i}>{genre.name}</option>
                                         })}
                                     </select>
                                     <button onClick={genreSearch}>Search</button>
