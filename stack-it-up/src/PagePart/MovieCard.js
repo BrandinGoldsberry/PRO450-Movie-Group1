@@ -11,6 +11,7 @@ const Review = props => {
     const [isEdit, setIsEdit] = useState();
     const [reviewText, setReviewText] = useState(props.reviewText);
     const [rating, setRating] = useState(props.rating);
+    const [pendingDelete, setPendingDelete] = useState(false);
 
     var curTextEntry = "";
     var curRating = 0;
@@ -27,6 +28,20 @@ const Review = props => {
         setIsEdit(false);
     }
 
+    const deleteReview = () => {
+        var res = Axios.put('http://localhost:5001/reviews/delete-review', {
+            reviewId: props.reviewId
+        });
+        setPendingDelete(true);
+    }
+
+    const deleteUser = () => {
+        var res = Axios.put('http://localhost:5001/users/delete-user', {
+            userId: props.ownerId
+        });
+        setPendingDelete(true);
+    }
+
     const onNewText = (e) => {
         curTextEntry = e.target.value;
     }
@@ -37,7 +52,7 @@ const Review = props => {
     return(
         <div>
             {
-                isEdit &&
+                isEdit && !pendingDelete &&
                 <div>
                     <Stars 
                     edit={true}
@@ -48,7 +63,7 @@ const Review = props => {
                     <button onClick={postReview}>Post Review</button>
                 </div>
             } {
-                !isEdit &&
+                !isEdit && !pendingDelete &&
                 <div>
                     <Stars 
                     edit={false}
@@ -59,6 +74,14 @@ const Review = props => {
                     {
                         props.isOwned &&
                         <button onClick={() => setIsEdit(true)}>Edit Review</button>
+                    }
+                    {
+                        props.isAdmin &&
+                        <button onClick={() => deleteReview()}>Delete Review</button>
+                    }
+                    {
+                        props.isAdmin &&
+                        <button onClick={() => deleteUser()}>Delete User</button>
                     }
                 </div>
             }
@@ -104,6 +127,7 @@ const MovieCard = props => {
                         className={review.review}
                         data-username={review.username}
                         data-id={review._id}
+                        data-owner-id={review.userId}
                         key={i}
                         edit={false}
                         rating={review.rating}
@@ -191,6 +215,8 @@ const MovieCard = props => {
                             reviewer={review.props["data-username"]}
                             isOwned={userData.user?.username === review.props["data-username"]}
                             reviewId={review.props["data-id"]}
+                            ownerId={review.props["data-owner-id"]}
+                            isAdmin={userData.user?.admin}
                            />
                         )
                     })
