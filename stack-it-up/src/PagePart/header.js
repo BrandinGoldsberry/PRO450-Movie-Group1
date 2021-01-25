@@ -9,7 +9,7 @@ import axios from "axios";
 const Header = () => {
     const { userData, setUserData } = useContext(UserContext);
     const { movieData, setMovieData } = useContext(MovieContext);
-    
+
     const [searchType, setSearchType] = useState("title");
     const [selectedgenre, setSelectedgenre] = useState();
     const [title, setTitle] = useState("");
@@ -179,11 +179,41 @@ const Header = () => {
                 {
                     userData.user ?
                         <>
-                            <input name="search" />
-                            <select onSelect={handleSelect}>
-                                <option value="Title"></option>
-                                <option value="Actor"></option>
-                                <option value="genre"></option>
+                            {searchType === "title" ?
+                                <>
+                                    <input placeholder="Search Movie Title" name="search" onChange={(e) => { setTitle(e.target.value) }} />
+                                    <button onClick={titleSearch}>Search</button>
+                                    <br />
+                                </>
+                                :
+                                <></>
+                            }
+                            {searchType === "actor" ?
+                                <>
+                                    <input placeholder="Search Movie By Actor" name="search" onChange={(e) => { setActor(e.target.value) }} />
+                                    <button onClick={actorSearch}>Search</button>
+                                    <br />
+                                </>
+                                :
+                                <></>
+                            }
+                            {searchType === "genre" ?
+                                <>
+                                    <select onChange={(e) => { handleGenreSelect(e) }} name="genres">
+                                        {genres.map(function (genre, i) {
+                                            return <option value={genre.id} key={i}>{genre.name}</option>
+                                        })}
+                                    </select>
+                                    <button onClick={genreSearch}>Search</button>
+                                </>
+                                :
+                                <></>
+                            }
+
+                            <select onChange={(e) => { handleSelect(e) }} name="searchType">
+                                <option default value="Title">Title</option>
+                                <option value="Actor">Actor</option>
+                                <option value="Genre">Genre</option>
                             </select>
                             <button onClick={navToAccount}>
                                 <p>{userData.user.username}</p>
