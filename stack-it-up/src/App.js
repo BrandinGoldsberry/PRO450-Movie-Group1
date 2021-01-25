@@ -14,13 +14,13 @@ import SignUp from './RoutesPages/signUp';
 import EditAccount from './RoutesPages/editAccount';
 
 export default function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     user: undefined
   });
   const [movieData, setMovieData] = useState({
     movies: undefined
   });
+
   return (
     <>
       <Router>

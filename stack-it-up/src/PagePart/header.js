@@ -3,15 +3,12 @@ import { NavLink, useHistory } from "react-router-dom";
 import UserContext from "../Context/userContext";
 import MovieContext from "../Context/movieContext";
 import Axios from "axios"
-import Dropdown from 'react-bootstrap/Dropdown';
-import axios from "axios";
 
 const Header = () => {
     const { userData, setUserData } = useContext(UserContext);
     const { movieData, setMovieData } = useContext(MovieContext);
 
     const [searchType, setSearchType] = useState("title");
-    const [selectedgenre, setSelectedgenre] = useState();
     const [title, setTitle] = useState("");
     const [actor, setActor] = useState("");
     const [genreId, setGenreId] = useState(28);
@@ -168,6 +165,29 @@ const Header = () => {
         // history.push("/");
         // history.go();
     }
+
+    useEffect(() => {
+        const checkLoggedIn = async () => {
+          let userId = localStorage.getItem("user");
+          console.log(userId)
+    
+          if (userId === null) {
+            console.log(`User Id is Null`)
+            localStorage.setItem("user", "");
+            userId = "";
+          } else {
+            const response = await Axios.post(
+              `http://localhost:5001/users/isUserIdValid?userId=${userId}&type=loginUserData`,
+              {userId}
+            );
+            if(!userData.user){
+                setUserData(response.data)
+            }
+          }
+        }
+    
+        checkLoggedIn();
+      }, [!userData])
 
     return (
         <header id="header">

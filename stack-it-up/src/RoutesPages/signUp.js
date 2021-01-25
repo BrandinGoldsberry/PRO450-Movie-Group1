@@ -25,12 +25,8 @@ const SignUp = () => {
     const captchaRef = useRef();
 
     const submitSignInForm = async (e) => {
-        // setLoading(true);
         e.preventDefault();
-
         const captchaToken = await captchaRef.current.executeAsync();
-
-        setUsername(`${fname}${lname.charAt(0)}`)
         const registerUserRes = await Axios.post(
             "http://localhost:5001/users/sign-up",
             {
@@ -48,11 +44,9 @@ const SignUp = () => {
             }
         ).catch(
             (err) => {
-                setLoading(false);
                 setError(err.response.data);
             }
         );
-
         if (registerUserRes) {
             const loginUserRes = await Axios.post(
                 "http://localhost:5001/users/login",
@@ -68,19 +62,10 @@ const SignUp = () => {
                 setUserData({
                     user: loginUserRes.data.user
                 });
-                // localStorage.setItem("user", loginUserRes.data.user);
-                // setLoading(false);
+                localStorage.setItem("user", loginUserRes.data.user.id);
                 history.push("/");
             }
         }
-    }
-
-    if (isLoading) {
-        return (
-            <div className="loadingDiv">
-                <h1>Loading...</h1>
-            </div>
-        )
     }
 
     return (

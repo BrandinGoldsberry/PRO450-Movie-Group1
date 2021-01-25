@@ -33,7 +33,7 @@ const LogIn = () => {
             setUserData({
                 user: loginUserRes.data.user
             });
-            localStorage.setItem("user", loginUserRes.data.user);
+            localStorage.setItem("user", loginUserRes.data.user.id);
             setLoading(false);
             history.push("/");
         }
