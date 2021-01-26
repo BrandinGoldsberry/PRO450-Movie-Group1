@@ -24,6 +24,8 @@ const SignUp = () => {
     const history = useHistory();
     const captchaRef = useRef();
 
+    const grecaptchaObject = window.grecaptcha;
+
     const submitSignInForm = async (e) => {
         e.preventDefault();
         const captchaToken = await captchaRef.current.executeAsync();
@@ -206,6 +208,7 @@ const SignUp = () => {
                 <ReCAPTCHA
                     sitekey="6LfU2zoaAAAAAE8uHnF4kc5vYMqIcNodmLXJymiK"
                     size="invisible"
+                    grecaptcha={grecaptchaObject}
                     ref={captchaRef} />
                 <br />
 
