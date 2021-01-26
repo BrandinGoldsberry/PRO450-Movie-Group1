@@ -80,7 +80,7 @@ const SignUp = () => {
                         ?
                         <>
                             <br />
-                            {grecaptcha.reset(captchaRef)}
+                            {window.grecaptcha.reset(captchaRef)}
                             <span className="errorMessage">{error}</span>
                             <br />
                         </>
@@ -210,6 +210,7 @@ const SignUp = () => {
                 <br />
 
                 <p>Already have an account? <br /><NavLink to="/login">Log In</NavLink></p>
+
                 <br />
                 <input type="submit" value="Sign Up" className="inputButton" />
 
