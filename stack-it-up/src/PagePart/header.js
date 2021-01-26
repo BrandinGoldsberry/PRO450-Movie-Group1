@@ -3,15 +3,12 @@ import { NavLink, useHistory } from "react-router-dom";
 import UserContext from "../Context/userContext";
 import MovieContext from "../Context/movieContext";
 import Axios from "axios"
-import Dropdown from 'react-bootstrap/Dropdown';
-import axios from "axios";
 
 const Header = () => {
     const { userData, setUserData } = useContext(UserContext);
     const { movieData, setMovieData } = useContext(MovieContext);
-    
+
     const [searchType, setSearchType] = useState("title");
-    const [selectedgenre, setSelectedgenre] = useState();
     const [title, setTitle] = useState("");
     const [actor, setActor] = useState("");
     const [genreId, setGenreId] = useState(28);
@@ -169,6 +166,29 @@ const Header = () => {
         // history.go();
     }
 
+    useEffect(() => {
+        const checkLoggedIn = async () => {
+          let userId = localStorage.getItem("user");
+          console.log(userId)
+    
+          if (userId === null) {
+            console.log(`User Id is Null`)
+            localStorage.setItem("user", "");
+            userId = "";
+          } else {
+            const response = await Axios.post(
+              `http://localhost:5001/users/isUserIdValid?userId=${userId}&type=loginUserData`,
+              {userId}
+            );
+            if(!userData.user){
+                setUserData(response.data)
+            }
+          }
+        }
+    
+        checkLoggedIn();
+      }, [!userData])
+
     return (
         <header id="header">
             <NavLink id="navBarTitle" to="/">
@@ -179,11 +199,41 @@ const Header = () => {
                 {
                     userData.user ?
                         <>
-                            <input name="search" />
-                            <select onSelect={handleSelect}>
-                                <option value="Title"></option>
-                                <option value="Actor"></option>
-                                <option value="genre"></option>
+                            {searchType === "title" ?
+                                <>
+                                    <input placeholder="Search Movie Title" name="search" onChange={(e) => { setTitle(e.target.value) }} />
+                                    <button onClick={titleSearch}>Search</button>
+                                    <br />
+                                </>
+                                :
+                                <></>
+                            }
+                            {searchType === "actor" ?
+                                <>
+                                    <input placeholder="Search Movie By Actor" name="search" onChange={(e) => { setActor(e.target.value) }} />
+                                    <button onClick={actorSearch}>Search</button>
+                                    <br />
+                                </>
+                                :
+                                <></>
+                            }
+                            {searchType === "genre" ?
+                                <>
+                                    <select onChange={(e) => { handleGenreSelect(e) }} name="genres">
+                                        {genres.map(function (genre, i) {
+                                            return <option value={genre.id} key={i}>{genre.name}</option>
+                                        })}
+                                    </select>
+                                    <button onClick={genreSearch}>Search</button>
+                                </>
+                                :
+                                <></>
+                            }
+
+                            <select onChange={(e) => { handleSelect(e) }} name="searchType">
+                                <option default value="Title">Title</option>
+                                <option value="Actor">Actor</option>
+                                <option value="Genre">Genre</option>
                             </select>
                             <button onClick={navToAccount}>
                                 <p>{userData.user.username}</p>
