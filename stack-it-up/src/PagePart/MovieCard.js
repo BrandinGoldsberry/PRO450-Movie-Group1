@@ -5,7 +5,7 @@ import UserContext from "../Context/userContext";
 import Stars from './Stars';
 import Axios from 'axios';
 
-const movieUrl = "https://image.tmdb.org/t/p/w200";
+const movieUrl = "https://image.tmdb.org/t/p/w500";
 
 const Review = props => {
     const [isEdit, setIsEdit] = useState();
@@ -171,14 +171,15 @@ const MovieCard = props => {
         getRatings();
     }, [!rating, !reviewCount, !userReview]);
 
-
     return (
         <div className="movie-card">
-            <h3>{movie.title}</h3>
+            <div className="title-wrap">
+                <h3 className="movie-title">{movie.title}</h3>
+            </div>
             <p>{movie.release_date}</p>
-            <img src={movieUrl + movie.poster_path} />
-            <p>{movie.overview.slice(0, 65)}...</p>
-            <div style={ {display: "flex", flexDirection: "row"} } >
+            <img className="movie-poster" src={movieUrl + movie.poster_path} alt="Movie Poster" />
+            <p className="movie-description">{movie.overview.slice(0, 65)}...</p>
+            <div className="overall-rating">
                 <Stars
                     edit={userData.user != undefined}
                     rating={rating}
