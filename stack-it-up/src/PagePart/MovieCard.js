@@ -29,16 +29,13 @@ const Review = props => {
     }
 
     const deleteReview = () => {
-        var res = Axios.put('http://localhost:5001/reviews/delete-review', {
-            reviewId: props.reviewId
-        });
+        console.log(props.reviewId);
+        var res = Axios.delete('http://localhost:5001/reviews/delete-review?reviewId=' + props.reviewId);
         setPendingDelete(true);
     }
 
     const deleteUser = () => {
-        var res = Axios.put('http://localhost:5001/users/delete-user', {
-            userId: props.ownerId
-        });
+        var res = Axios.delete('http://localhost:5001/users/delete-user?userId=' + props.ownerId);
         setPendingDelete(true);
     }
 
@@ -107,19 +104,6 @@ const MovieCard = props => {
         reviews = reviews.data.reviews || [];
         setReviewCount(reviews.length);
         if (reviews.length > 0) {
-            //This is the list I generate
-            //Can I use it render?
-            //no
-            //Can I loop through it in render?
-            //Yeah
-            //Can I insert them directly?
-            //no
-            //Can I pick them apart and reassemble them?
-            //Yeah
-            //Did I want to?
-            //no
-            //Did I have to?
-            //Yeah
             let reviewList = [];
             reviews.map((review, i) => {
                 reviewList.push(
@@ -170,7 +154,7 @@ const MovieCard = props => {
     useEffect(() => {
         getRatings();
     }, [!rating, !reviewCount, !userReview]);
-
+    
     return (
         <div className="movie-card">
             <div className="title-wrap">
@@ -180,11 +164,13 @@ const MovieCard = props => {
             <img className="movie-poster" src={movieUrl + movie.poster_path} alt="Movie Poster" />
             <p className="movie-description">{movie.overview.slice(0, 65)}...</p>
             <div className="overall-rating">
-                <Stars
-                    edit={userData.user != undefined}
-                    rating={rating}
-                />
-                <p className="ml-2 mb-0" style={ {lineHeight: "32px"} }>({reviewCount || '0'} ratings)</p>
+                <div className="rating-stack">
+                    <Stars
+                        edit={userData.user != undefined}
+                        rating={rating}
+                    />
+                    <p className="ml-2 mb-0" style={ {lineHeight: "32px"} }>({reviewCount || '0'} ratings)</p>
+                </div>
                 <button onClick={() => setShowReviews(!showReviews)}>{showReviews ? "Hide" : "Show"} Reviews</button>
                 {/* {userData?.user && userReview?.review ? <>
                     <p>Change your review ({userReview.review})</p>
@@ -197,16 +183,6 @@ const MovieCard = props => {
                 showReviews &&
                 <>
                     {
-                    //So I have to iterate of a collection of components to get it to even render, 
-                    //but, if I try and render them directly, it throws fucking fit, 
-                    //so I have to stick with this jank shit before I look like kurt kobain
-                    //I'm fucking done with this bullshittery
-                    //"Objects are not valid react components, use an array instead"
-                    //Not an object, was an array
-                    //Can't even pass an object into a component for that to work
-                    //Because it just throiws an error
-                    //Functions are awful
-                    //Seriously who made this?
                     userReviews &&
                     userReviews.map((review) => {
                         return(
@@ -242,4 +218,3 @@ const MovieCard = props => {
 }
 
 export default MovieCard;
-//This pain is eternal help me
