@@ -37,9 +37,10 @@ const EditAccount = () => {
     }
     if (userData.user) getUserInfo();
 
-    const submitEditForm = evt => {
+    const submitEditForm = async evt => {
         evt.preventDefault();
-        Axios.put('http://localhost:5001/users/update-user', {
+        let body = {
+            userId: userData.user.id,
             fname: document.getElementById('fname').value,
             lname: document.getElementById('lname').value,
             username: document.getElementById('username').value,
@@ -48,9 +49,10 @@ const EditAccount = () => {
             street: document.getElementById('street').value,
             city: document.getElementById('city').value,
             state: document.getElementById('state').value,
-            zipCode: document.getElementById('zipCode').value,
+            zip_code: document.getElementById('zipCode').value,
             phone: document.getElementById('phone').value
-        })
+        };
+        Axios.put('http://localhost:5001/users/update-user', body)
         .then(res => {
             getUserInfo();
         });
