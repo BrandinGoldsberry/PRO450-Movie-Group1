@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { NavLink } from "react-router-dom";
+
 
 import UserContext from "../Context/userContext";
 
@@ -158,7 +160,7 @@ const MovieCard = props => {
     return (
         <div className="movie-card">
             <div className="title-wrap">
-                <h3 className="movie-title">{movie.title}</h3>
+                <NavLink to={`/movie/${movie.id}`} className="movie-title">{movie.title}</NavLink>
             </div>
             <p>{movie.release_date}</p>
             <img className="movie-poster" src={movieUrl + movie.poster_path} alt="Movie Poster" />
