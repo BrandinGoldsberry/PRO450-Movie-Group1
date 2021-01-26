@@ -66,7 +66,7 @@ const LogIn = () => {
                 onChange={(e) => { setPassword(e.target.value); }}
             />
 
-            <p>Need an Account? <br /><NavLink to="/sign-up">Sign Up</NavLink></p>
+            {/* <p>Need an Account? <br /><NavLink to="/sign-up">Sign Up</NavLink></p> */}
             <br />
             <input type="submit" name="Log In" className="inputButton" />
         </form>
