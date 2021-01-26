@@ -196,3 +196,65 @@ div#navButtons button {
 span.nav-splitter {
     width: 100%;
 }
+
+/* Movie Detail Page */
+em{
+    font-style: italic;
+    font-size: 23pt;
+    transform:scale(4,1);
+    color: rgb(90, 90, 90);
+}
+
+
+#moviePageContainer{
+    display: flex;
+    align-self: center;
+    margin: auto;
+    padding: 25px;
+    flex-direction: row;
+    width: 60% !important;
+    /* background-color: rgba(128, 128, 128, 0.157); */
+}
+
+#moviePoster{
+    width: fit-content;
+    margin: 1rem;
+}
+
+#movieInformationWrapper{
+    display: flex;
+    width: 50% !important;
+    flex-direction: column;
+    width: fit-content;
+    margin: 1rem;
+}
+
+#movieUnderTitleInfo{
+    width: fit-content;
+}
+
+#movieName{
+    width: fit-content;
+}
+
+#movieName h2{
+    font-weight: bold;
+}
+
+#movieTagLine{
+    width: fit-content;
+}
+
+#movieOverview{
+    width: 80%;
+}
+
+@media screen and (max-width: 950px) {
+    #moviePageContainer{
+        flex-direction: column;
+    }
+    
+    #movieOverview{
+        width: fit-content;
+    }
+  }

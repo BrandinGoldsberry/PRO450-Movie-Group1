@@ -55,9 +55,11 @@ const SignUp = () => {
                     password
                 }
             );
+
             setUserData({
                 user: loginUserRes.data.user
             });
+
             if (loginUserRes) {
                 setUserData({
                     user: loginUserRes.data.user
@@ -91,6 +93,7 @@ const SignUp = () => {
                 <input
                     value={fname}
                     id="registerFName"
+                    required
                     type="text"
                     name="fname"
                     className="inputBox"
@@ -104,6 +107,7 @@ const SignUp = () => {
                     value={lname}
                     id="registerLName"
                     type="text"
+                    required
                     name="lname"
                     className="inputBox"
                     onChange={(e) => { setLName(e.target.value); }}
@@ -115,7 +119,8 @@ const SignUp = () => {
                 <input
                     value={email}
                     id="registerEmail"
-                    type="text"
+                    required
+                    type="email"
                     name="email"
                     className="inputBox"
                     onChange={(e) => { setEmail(e.target.value); }}
@@ -127,6 +132,7 @@ const SignUp = () => {
                 <input
                     value={state}
                     id="registerState"
+                    required
                     type="text"
                     name="state"
                     className="inputBox"
@@ -139,6 +145,7 @@ const SignUp = () => {
                 <input
                     value={street}
                     id="registerStreet"
+                    required
                     type="text"
                     name="street"
                     className="inputBox"
@@ -151,6 +158,7 @@ const SignUp = () => {
                 <input
                     value={city}
                     id="registerCity"
+                    required
                     type="text"
                     name="city"
                     className="inputBox"
@@ -163,6 +171,7 @@ const SignUp = () => {
                 <input
                     value={zip_code}
                     id="registerZipCode"
+                    required
                     type="text"
                     name="zip_code"
                     className="inputBox"
@@ -175,6 +184,7 @@ const SignUp = () => {
                 <input
                     value={phone}
                     id="registerPhone"
+                    required
                     type="text"
                     name="phone"
                     className="inputBox"
@@ -186,6 +196,7 @@ const SignUp = () => {
                 <label htmlFor="registerPassword">Password</label>
                 <input
                     id="registerPassword"
+                    required
                     type="password"
                     name="password"
                     className="inputBox"
