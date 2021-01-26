@@ -14,7 +14,6 @@ const LogIn = () => {
 
     const submitLogInForm = async (e) => {
         e.preventDefault();
-
         const loginUserRes = await Axios.post(
             "http://localhost:5001/users/login",
             { username, password }
@@ -23,7 +22,6 @@ const LogIn = () => {
                 setError(err.response.data);
             }
         );
-
         if (loginUserRes) {
             setUserData({
                 user: loginUserRes.data.user
@@ -68,7 +66,7 @@ const LogIn = () => {
                 onChange={(e) => { setPassword(e.target.value); }}
             />
 
-            <p>Need an Account? <br /><NavLink to="/sign-up">Sign Up</NavLink></p>
+            {/* <p>Need an Account? <br /><NavLink to="/sign-up">Sign Up</NavLink></p> */}
             <br />
             <input type="submit" name="Log In" className="inputButton" />
         </form>
