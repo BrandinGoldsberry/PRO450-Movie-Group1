@@ -97,10 +97,11 @@ const MovieCard = props => {
     const [showReviews, setShowReviews] = useState(false);
     
     const { userData, setUserData } = useContext(UserContext);
-
+    
     var curTextEntry = "";
     var curRating = 0;
-
+    
+    console.log(userData);
     const getRatings = async () => {
         let reviews = await Axios.get(`http://localhost:5001/reviews/reviews-by-movie?movieId=${movie.id}`);
         reviews = reviews.data.reviews || [];
