@@ -53,9 +53,6 @@ export default function App() {
               <Route exact path="/admin">
                 <AdminDashboard />
               </Route>
-              <Route exact path="/admin">
-                <AdminDashboard />
-              </Route>
             </Switch>
           </MovieContext.Provider>
         </UserContext.Provider>
