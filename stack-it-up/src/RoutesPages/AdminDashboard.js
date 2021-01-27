@@ -195,12 +195,13 @@ const DashBoard = (props) => {
     const [ needForceUpdate, setNeedForceUpdate ] = useState();
     
     const getRatings = async (user) => {
-        let reviews = await Axios.get(`http://localhost:5001/reviews/get-reviews-by-user?userId=${user._id}`);
-        reviews = reviews.data.result;
+        setUserReviews({ userReviews: null })
+        const reviews = await Axios.get(`http://localhost:5001/reviews/get-reviews-by-user?userId=${user._id}`);
 
-        if (reviews.length > 0) {
+        if (reviews) {
+            const reviewResults = reviews.data.result;
             let reviewList = [];
-            reviews.map((review, i) => {
+            reviewResults.map((review, i) => {
                 reviewList.push(
                     <Stars
                         className={review.review}
@@ -213,7 +214,7 @@ const DashBoard = (props) => {
                     />
                 );
             })
-            setUserReviews({userReviews: reviewList});
+            setUserReviews({ userReviews: reviewList });
         }
     }
 
