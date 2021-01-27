@@ -94,6 +94,7 @@ const Header = () => {
     const navToLogin = () => history.push("/login");
     const navToSignUp = () => history.push("/sign-up")
     const navToAccount = () => history.push("/account");
+    const navToDashboard = () => history.push("/admin");
 
     const logOutUser = () => {
         setUserData({
@@ -235,6 +236,12 @@ const Header = () => {
                                 <option value="Actor">Actor</option>
                                 <option value="Genre">Genre</option>
                             </select>
+                            {
+                                userData.user?.admin &&
+                                <button onClick={navToDashboard}>
+                                    <p>Admin DashBoard</p>
+                                </button>
+                            }
                             <button onClick={navToAccount}>
                                 <p>{userData.user.username}</p>
                             </button>

@@ -13,6 +13,7 @@ import LogIn from './RoutesPages/logIn';
 import SignUp from './RoutesPages/signUp';
 import EditAccount from './RoutesPages/editAccount';
 import MoviePage from './RoutesPages/movieDetailPage';
+import AdminDashboard from './RoutesPages/AdminDashboard';
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -32,6 +33,9 @@ export default function App() {
               <Route exact path="/">
                 <LandingPage />
               </Route>
+              <Route path="/movie/:movieId">
+                <MoviePage/>
+              </Route>
               <Route path="/login">
                 <LogIn />
               </Route>
@@ -41,8 +45,8 @@ export default function App() {
               <Route path="/account">
                 <EditAccount />
               </Route>
-              <Route path="/movie/:movieId">
-                <MoviePage/>
+              <Route exact path="/admin">
+                <AdminDashboard />
               </Route>
             </Switch>
           </MovieContext.Provider>
