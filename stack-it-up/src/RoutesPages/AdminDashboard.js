@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Stars from '../PagePart/Stars';
@@ -119,7 +119,7 @@ const SearchPanel = (props) => {
 const UserPanel = (props) => {
     const { userData, setUserData } = useContext(userContext);
     const [ pendingDelete, setPendingDelete] = useState(false);
-    const [ isAdmin, setIsAdmin ] = useState(props.selectedUser?.admin)
+    const [ isAdmin, setIsAdmin ] = useState(false)
 
     const grantAdmin = async () => {
         var res = await Axios.get('http://localhost:5001/users/make-admin?userId=' + props.selectedUser?._id);
@@ -141,6 +141,10 @@ const UserPanel = (props) => {
             setPendingDelete(true);
         }
     }
+
+    useEffect(() => {
+        setIsAdmin(props.selectedUser?.admin);
+    })
 
     return (
         <div id="user-panel">
