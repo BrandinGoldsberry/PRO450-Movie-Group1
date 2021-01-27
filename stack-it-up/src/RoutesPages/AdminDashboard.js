@@ -118,25 +118,27 @@ const SearchPanel = (props) => {
 
 const UserPanel = (props) => {
     const { userData, setUserData } = useContext(userContext);
+    const [ pendingDelete, setPendingDelete] = useState(false);
+    const [ isAdmin, setIsAdmin ] = useState(props.selectedUser?.admin)
 
-    const grantAdmin = () => {
-        var res = Axios.get('http://localhost:5001/users/make-admin?userId=' + props.selectedUser?._id);
+    const grantAdmin = async () => {
+        var res = await Axios.get('http://localhost:5001/users/make-admin?userId=' + props.selectedUser?._id);
         if(res.status == 200) {
-            props.forceUpdate();
+            setIsAdmin(true);
+        }
+    }
+    
+    const takeAdmin = async () => {
+        var res = await Axios.get('http://localhost:5001/users/take-admin?userId=' + props.selectedUser?._id);
+        if(res.status == 200) {
+            setIsAdmin(false);
         }
     }
 
-    const takeAdmin = () => {
-        var res = Axios.get('http://localhost:5001/users/take-admin?userId=' + props.selectedUser?._id);
+    const deleteUser = async () => {
+        var res = await Axios.delete('http://localhost:5001/users/delete-user?userId=' + props.selectedUser?._id);
         if(res.status == 200) {
-            props.forceUpdate();
-        }
-    }
-
-    const deleteUser = () => {
-        var res = Axios.delete('http://localhost:5001/users/delete-user?userId=' + props.selectedUser?._id);
-        if(res.status == 200) {
-            props.forceUpdate();
+            setPendingDelete(true);
         }
     }
 
@@ -150,18 +152,18 @@ const UserPanel = (props) => {
                 </div>
                 <div id="admin-controls">
                     {
-                        userData.user.superAdmin && props.selectedUser.admin &&
+                        (userData.user.superAdmin && (isAdmin)) &&
                         <button onClick={() => takeAdmin()}>Remove Admin Perms</button>
                     }
                     {
-                        !props.selectedUser.admin &&
+                        (!isAdmin) &&
                         <button onClick={() => grantAdmin()}>Grant Admin Perms</button>
                     }
                     {
-                        !props.selectedUser.admin &&
+                        (!isAdmin || pendingDelete) &&
                         <button onClick={() => deleteUser()}>Delete User</button>
                     }
-                    <p>Refresh to see changes</p>
+                    <p>{pendingDelete && "User will be deleted!"}</p>
                 </div>
                 <div id="user-reviews">
                     {
@@ -189,7 +191,7 @@ const UserPanel = (props) => {
 const DashBoard = (props) => {
     const { userData, setUserData } = useContext(userContext);
     const [ selectedUser, setSelectedUser ] = useState();
-    const [ userReviews, setUserReviews ] = useState();
+    const [ userReviews, setUserReviews ] = useState([]);
     const [ needForceUpdate, setNeedForceUpdate ] = useState();
     
     const getRatings = async (user) => {
