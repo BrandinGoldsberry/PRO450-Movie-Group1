@@ -11,7 +11,6 @@ const EditAccount = () => {
     const [fname, setFname] = useState();
     const [lname, setLname] = useState();
     const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
     const [email, setEmail] = useState();
     const [street, setStreet] = useState();
     const [city, setCity] = useState();
@@ -26,7 +25,6 @@ const EditAccount = () => {
             setFname(user.fname);
             setLname(user.lname);
             setUsername(user.username);
-            // setPassword(user.password);
             setEmail(user.email);
             setStreet(user.street);
             setCity(user.city);
@@ -44,7 +42,6 @@ const EditAccount = () => {
             fname: document.getElementById('fname').value,
             lname: document.getElementById('lname').value,
             username: document.getElementById('username').value,
-            // password: document.getElementById('password').value,
             email: document.getElementById('email').value,
             street: document.getElementById('street').value,
             city: document.getElementById('city').value,
@@ -60,8 +57,10 @@ const EditAccount = () => {
 
     const resetPassword = evt => {
         evt.preventDefault();
-        Axios.post('http://localhost:5001/email/reset-password', { email: userData.user.email })
-        .then(res => {
+        Axios.post('http://localhost:5001/email/reset-password', {
+            email: userData.user.email,
+            userId: userData.user.id
+        }).then(res => {
             alert(`A password reset email has been sent to ${userData.user.email}`);
         });
     }
@@ -76,9 +75,7 @@ const EditAccount = () => {
                     name="fname"
                     className="inputBox"
                     type="text"
-                    defaultValue={fname}
-                    // onInput={(evt) => { setFname(evt.target.value); }}
-                />
+                    defaultValue={fname} />
                 <br />
 
                 <label htmlFor="lname">Last Name: </label>
@@ -86,9 +83,7 @@ const EditAccount = () => {
                     name="lname"
                     className="inputBox"
                     type="text"
-                    defaultValue={lname}
-                    // onInput={(evt) => { setLname(evt.target.value); }}
-                />
+                    defaultValue={lname} />
                 <br />
 
                 <label htmlFor="username">Username: </label>
@@ -96,29 +91,15 @@ const EditAccount = () => {
                     name="username"
                     className="inputBox"
                     type="text"
-                    defaultValue={username}
-                    // onInput={(evt) => { setUsername(evt.target.value); }}
-                />
+                    defaultValue={username} />
                 <br />
-
-                {/* <label htmlFor="password">Password: </label>
-                <input id="password"
-                    name="password"
-                    className="inputBox"
-                    type="text"
-                    defaultValue={password}
-                    onInput={(evt) => { setPassword(evt.target.value); }}
-                />
-                <br /> */}
 
                 <label htmlFor="email">Email: </label>
                 <input id="email"
                     name="email"
                     className="inputBox"
                     type="text"
-                    defaultValue={email}
-                    // onInput={(evt) => { setEmail(evt.target.value); }}
-                />
+                    defaultValue={email} />
                 <br />
 
                 <label htmlFor="street">Street: </label>
@@ -126,9 +107,7 @@ const EditAccount = () => {
                     name="street"
                     className="inputBox"
                     type="text"
-                    defaultValue={street}
-                    // onInput={(evt) => { setStreet(evt.target.value); }}
-                />
+                    defaultValue={street} />
                 <br />
 
                 <label htmlFor="city">City: </label>
@@ -136,9 +115,7 @@ const EditAccount = () => {
                     name="city"
                     className="inputBox"
                     type="text"
-                    defaultValue={city}
-                    // onInput={(evt) => { setCity(evt.target.value); }}
-                />
+                    defaultValue={city} />
                 <br />
 
                 <label htmlFor="state">State: </label>
@@ -146,9 +123,7 @@ const EditAccount = () => {
                     name="state"
                     className="inputBox"
                     type="text"
-                    defaultValue={state}
-                    // onInput={(evt) => { setState(evt.target.value); }}
-                />
+                    defaultValue={state} />
                 <br />
 
                 <label htmlFor="zipCode">Zip Code: </label>
@@ -156,9 +131,7 @@ const EditAccount = () => {
                     name="zipCode"
                     className="inputBox"
                     type="text"
-                    defaultValue={zipCode}
-                    // onInput={(evt) => { setZipCode(evt.target.value); }}
-                />
+                    defaultValue={zipCode} />
                 <br />
 
                 <label htmlFor="phone">Phone: </label>
@@ -166,9 +139,7 @@ const EditAccount = () => {
                     name="phone"
                     className="inputBox"
                     type="text"
-                    defaultValue={phone}
-                    // onInput={(evt) => { setPhone(evt.target.value); }}
-                />
+                    defaultValue={phone} />
                 <br />
 
                 <br />
