@@ -196,7 +196,6 @@ const Header = () => {
                 <h1>Insert Name</h1>
             </NavLink>
             <div id="navButtons">
-                <span className="nav-splitter"></span>
                 {
                     userData.user ?
                         <>
