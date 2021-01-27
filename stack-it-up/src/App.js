@@ -48,6 +48,9 @@ export default function App() {
               <Route path="/movie/:movieId">
                 <MoviePage/>
               </Route>
+              <Route exact path="/admin">
+                <AdminDashboard />
+              </Route>
             </Switch>
           </MovieContext.Provider>
         </UserContext.Provider>
