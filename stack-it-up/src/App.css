@@ -108,12 +108,17 @@ button:hover {
 #navButtons {
     display: flex;
     align-items: center;
+    justify-items: flex-end;
+    justify-content: flex-end;
     height: 100%;
+    align-content: space-around;
 }
 
 #navButtons button {
-    height: 100%;
-    padding: 0px 15px;
+    height: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
 }
 
 #navButtons button:hover {
@@ -193,11 +198,7 @@ a#navBarTitle h1 {
 div#navButtons {
     width: 100%;
 }
-div#navButtons button {
-    width: auto;
-    overflow: hidden;
-    white-space: nowrap;
-}
+
 span.nav-splitter {
     width: 100%;
 }
