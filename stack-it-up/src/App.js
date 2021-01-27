@@ -13,6 +13,7 @@ import LogIn from './RoutesPages/logIn';
 import SignUp from './RoutesPages/signUp';
 import EditAccount from './RoutesPages/editAccount';
 import MoviePage from './RoutesPages/movieDetailPage';
+import ResetPasswordPage from './RoutesPages/resetPasswordPage';
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -29,6 +30,9 @@ export default function App() {
           <MovieContext.Provider value={{ movieData, setMovieData }}>
             <Header />
             <Switch>
+              <Route path="/reset-password/:userId">
+                <ResetPasswordPage/>
+              </Route>
               <Route exact path="/">
                 <LandingPage />
               </Route>
