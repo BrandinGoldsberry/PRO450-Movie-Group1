@@ -193,7 +193,7 @@ const Header = () => {
     return (
         <header id="header">
             <NavLink id="navBarTitle" to="/">
-                <h1>Insert Name</h1>
+                <h1>Group 1</h1>
             </NavLink>
             <div id="navButtons">
                 {

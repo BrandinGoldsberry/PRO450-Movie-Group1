@@ -119,8 +119,11 @@ const SearchPanel = (props) => {
 const UserPanel = (props) => {
     const { userData, setUserData } = useContext(userContext);
     const [ pendingDelete, setPendingDelete] = useState(false);
-    const [ isAdmin, setIsAdmin ] = useState(props.selectedUser?.admin || false)
-    console.log(props.selectedUser?.admin);
+    const [ isAdmin, setIsAdmin ] = useState(!!props.selectedUser?.admin || false);
+    if (!!props.selectedUser?.admin && !isAdmin) setIsAdmin(true);
+    // console.log(props);
+    // console.log(props.selectedUser?.admin);
+    // console.log(isAdmin);
     const grantAdmin = async () => {
         var res = await Axios.get('http://localhost:5001/users/make-admin?userId=' + props.selectedUser?._id);
         if(res.status == 200) {
