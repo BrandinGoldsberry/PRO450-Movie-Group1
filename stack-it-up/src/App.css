@@ -285,3 +285,7 @@ tr:hover {
         width: fit-content;
     }
   }
+
+.errorMessage {
+    color: red;
+}
