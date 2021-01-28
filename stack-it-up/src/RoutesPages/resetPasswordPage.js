@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Axios from "axios";
 
 import UserContext from "../Context/userContext";
@@ -13,6 +13,8 @@ const ResetPasswordPage = () => {
     
     const { token } = useParams();
 
+    const history = useHistory();
+
     const submitResetForm = evt => {
         evt.preventDefault();
         console.log(`${password} ${confirm} ${password == confirm}`);
@@ -25,7 +27,8 @@ const ResetPasswordPage = () => {
                 }
                 Axios.put('http://localhost:5001/users/update-password', body)
                 .then(res => {
-                    if (res.data.success) alert('Password has been changed');
+                    if (!res.data.success) setError("Could not reset password");
+                    else history.push("/");
                 });
             } else setError('Passwords must be at least 6 characters');
         } else setError('Passwords do not match');
