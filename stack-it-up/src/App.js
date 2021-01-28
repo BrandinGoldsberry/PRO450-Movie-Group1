@@ -32,14 +32,14 @@ export default function App() {
           <MovieContext.Provider value={{ movieData, setMovieData }}>
             <Header />
             <Switch>
-              <Route path="/reset-password/:userId">
-                <ResetPasswordPage/>
-              </Route>
               <Route exact path="/">
                 <LandingPage />
               </Route>
               <Route path="/movie/:movieId">
                 <MoviePage/>
+              </Route>
+              <Route path="/reset-password/:token">
+                <ResetPasswordPage/>
               </Route>
               <Route path="/login">
                 <LogIn />

@@ -55,10 +55,9 @@ const EditAccount = () => {
         });
     }
 
-    const resetPassword = evt => {
+    const submitResetForm = evt => {
         evt.preventDefault();
         Axios.post('http://localhost:5001/email/reset-password', {
-            email: userData.user.email,
             userId: userData.user.id
         }).then(res => {
             alert(`A password reset email has been sent to ${userData.user.email}`);
@@ -144,7 +143,7 @@ const EditAccount = () => {
 
                 <br />
                 <input type="submit" value="Save Changes" className="inputButton" />
-                <input type="button" value="Reset Password" className="inputButton" onClick={(evt) => resetPassword(evt)} />
+                <input type="button" value="Reset Password" className="inputButton" onClick={evt => submitResetForm(evt)} />
 
                 { error ?
                     <span className="errorMessage">{error}</span>

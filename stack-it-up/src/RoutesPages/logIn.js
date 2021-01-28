@@ -9,6 +9,8 @@ const LogIn = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
+    const [email, setEmail] = useState('');
+
     const { setUserData } = useContext(userContext);
     const history = useHistory();
 
@@ -31,19 +33,21 @@ const LogIn = () => {
         }
     }
 
+    const submitResetForm = evt => {
+        evt.preventDefault();
+        console.log(email);
+        Axios.post('http://localhost:5001/email/reset-password', {
+            email
+        }).then(res => {
+            alert(`A password reset email has been sent to ${email}`);
+        });
+    }
+
     return (
         <form className="formWrapper" onSubmit={submitLogInForm}>
             <h2>Log In</h2>
 
-            {
-                error
-                    ?
-                    <span className="errorMessage">{error}</span>
-                    :
-                    <></>
-            }
-
-            <label htmlFor="loginUsername">Username</label>
+            <label htmlFor="loginUsername">Username: </label>
             <input
                 value={username}
                 id="loginUsername"
@@ -56,7 +60,7 @@ const LogIn = () => {
 
             <br />
 
-            <label htmlFor="loginPassword">Password</label>
+            <label htmlFor="loginPassword">Password: </label>
             <input
                 id="loginPassword"
                 required
@@ -69,6 +73,28 @@ const LogIn = () => {
             {/* <p>Need an Account? <br /><NavLink to="/sign-up">Sign Up</NavLink></p> */}
             <br />
             <input type="submit" name="Log In" className="inputButton" />
+
+            {/* Forgot password */}
+
+            <h2>Forgot password?</h2>
+
+            <label htmlFor="email">Email: </label>
+            <input
+                value={email}
+                id="email"
+                type="text"
+                name="email"
+                className="inputBox"
+                onChange={evt => { setEmail(evt.target.value); }}
+            />
+
+            <br />
+            <input type="button" value="Reset Password" className="inputButton" onClick={evt => submitResetForm(evt)} />
+
+            { error ? <>
+                <br />
+                <span className="errorMessage">{error}</span>
+            </> : <></> }
         </form>
     );
 }
