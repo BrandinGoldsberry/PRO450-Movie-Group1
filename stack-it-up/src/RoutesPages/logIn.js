@@ -40,7 +40,8 @@ const LogIn = () => {
         Axios.post('http://localhost:5001/email/reset-password', {
             email
         }).then(res => {
-            alert(`A password reset email has been sent to ${email}`);
+            if (!res.data) setError("Could not find email");
+            else alert(`A password reset email has been sent to ${email}`);
         });
     }
 
