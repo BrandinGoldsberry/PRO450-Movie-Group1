@@ -289,3 +289,45 @@ tr:hover {
 .errorMessage {
     color: red;
 }
+
+/* RESPONSIVE CHANGES */
+
+/* fixes issues with buttons being an additional layer away from #navButtons */
+/* BEGIN */
+/* #search-buttons, 
+#account-buttons {
+    display: flex;
+    align-items: center;
+    justify-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+    align-content: space-around;
+}
+#search-buttons button,
+#account-buttons button {
+    height: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+}
+#search-buttons button:hover,
+#account-buttons button:hover {
+    background-color: rgb(224, 224, 224);
+} */
+/* END */
+
+/*
+#header {
+    // flex-flow: row wrap;
+    flex-wrap: wrap;
+    white-space: pre-wrap;
+}
+#navButtons {
+    white-space: pre-wrap;
+    width: 70%;
+}
+
+div#movieContainer {
+    columns: 216px 4;
+}
+*/
