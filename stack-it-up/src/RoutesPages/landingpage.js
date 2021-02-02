@@ -3,6 +3,7 @@ import Axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
 // import UserContext from "../Context/userContext";
 import MovieContext from "../Context/movieContext";
+import SearchContext from "../Context/searchContext";
 import Stars from '../PagePart/Stars';
 import MovieCard from '../PagePart/MovieCard';
 
@@ -14,6 +15,8 @@ const LandingPage = (props) => {
 
     // const { userData, setUserData } = useContext(UserContext);
     const { movieData, setMovieData } = useContext(MovieContext);
+    const { search, setSearch } = useContext(SearchContext);
+
 
     let history = useHistory();
 
@@ -53,6 +56,11 @@ const LandingPage = (props) => {
         getMovies();
         getMovieCards();
     }, [!movieData.movies]);
+
+    useEffect(() => {
+        localStorage.setItem("search", "")
+        setSearch("")
+    }, [search])
 
     return (
         <>

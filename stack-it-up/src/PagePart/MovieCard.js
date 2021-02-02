@@ -31,7 +31,7 @@ const Review = props => {
     }
 
     const deleteReview = () => {
-        console.log(props.reviewId);
+        // console.log(props.reviewId);
         var res = Axios.delete('http://localhost:5001/reviews/delete-review?reviewId=' + props.reviewId);
         setPendingDelete(true);
     }
@@ -101,7 +101,7 @@ const MovieCard = props => {
     var curTextEntry = "";
     var curRating = 0;
     
-    console.log(userData);
+    // console.log(userData);
     const getRatings = async () => {
         let reviews = await Axios.get(`http://localhost:5001/reviews/reviews-by-movie?movieId=${movie.id}`);
         reviews = reviews.data.reviews || [];

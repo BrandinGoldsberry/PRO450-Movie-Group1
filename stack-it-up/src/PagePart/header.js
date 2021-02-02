@@ -170,8 +170,7 @@ const Header = () => {
     useEffect(() => {
         const checkLoggedIn = async () => {
           let userId = localStorage.getItem("user");
-          console.log(userId)
-    
+          
           if (userId === null) {
             console.log(`User Id is Null`)
             localStorage.setItem("user", "");

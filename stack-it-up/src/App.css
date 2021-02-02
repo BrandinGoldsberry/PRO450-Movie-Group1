@@ -276,6 +276,11 @@ tr:hover {
     width: 80%;
 }
 
+#search-panel .table-wrapper {
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
 @media screen and (max-width: 950px) {
     #moviePageContainer{
         flex-direction: column;
