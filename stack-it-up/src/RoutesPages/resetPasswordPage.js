@@ -1,17 +1,21 @@
 import React, { useState, useContext } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import Axios from "axios";
-
-import UserContext from "../Context/userContext";
 
 const ResetPasswordPage = () => {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [error, setError] = useState();
 
-    const { userData } = useContext(UserContext);
-    
     const { token } = useParams();
+
+    const history = useHistory();
+
+    Axios.get(`http://localhost:5001/users/validate-reset-token?token=${token}`)
+    .then(res => {
+        console.log(res.data);
+        if (!res.data) return history.push('/');
+    });
 
     const submitResetForm = evt => {
         evt.preventDefault();
@@ -25,7 +29,13 @@ const ResetPasswordPage = () => {
                 }
                 Axios.put('http://localhost:5001/users/update-password', body)
                 .then(res => {
-                    if (res.data.success) alert('Password has been changed');
+                    if (!res.data.success) setError("Could not reset password");
+                    else {
+                        alert('Your password has been reset. You will be redirected in 5 seconds');
+                        setTimeout(() => {
+                            history.push("/");
+                        }, 5000);
+                    }
                 });
             } else setError('Passwords must be at least 6 characters');
         } else setError('Passwords do not match');

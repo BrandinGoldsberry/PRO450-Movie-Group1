@@ -4,7 +4,7 @@ import Axios from "axios";
 import userContext from "../Context/userContext";
 
 const LogIn = () => {
-    const [error, setError] = useState();
+    const [error, setError] = useState("");
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
@@ -16,30 +16,32 @@ const LogIn = () => {
 
     const submitLogInForm = async (e) => {
         e.preventDefault();
-        const loginUserRes = await Axios.post(
-            "http://localhost:5001/users/login",
-            { username, password }
-        ).catch(
-            (err) => {
-                setError(err.response.data);
+        setError("");
+        Axios.post('http://localhost:5001/users/login', {
+            username,
+            password
+        }).then((res) => {
+            if (res.data.success) {
+                setUserData({
+                    user: res.data.user
+                });
+                localStorage.setItem("user", res.data.user.id);
+                history.push("/");
+            } else {
+                setError(res.data.message);
             }
-        );
-        if (loginUserRes) {
-            setUserData({
-                user: loginUserRes.data.user
-            });
-            localStorage.setItem("user", loginUserRes.data.user.id);
-            history.push("/");
-        }
+        });
     }
 
     const submitResetForm = evt => {
         evt.preventDefault();
+        setError("");
         console.log(email);
         Axios.post('http://localhost:5001/email/reset-password', {
             email
         }).then(res => {
-            alert(`A password reset email has been sent to ${email}`);
+            if (!res.data) setError("Could not find email");
+            else alert(`A password reset email has been sent to ${email}`);
         });
     }
 

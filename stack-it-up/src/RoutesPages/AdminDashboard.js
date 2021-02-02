@@ -136,7 +136,6 @@ const UserPanel = (props) => {
     useEffect(() => {
         setIsAdmin(props.selectedUser?.admin);
     }, [props]);
-
     const grantAdmin = async () => {
         var res = await Axios.get('http://localhost:5001/users/make-admin?userId=' + props.selectedUser?._id);
         if (res.status == 200) {
